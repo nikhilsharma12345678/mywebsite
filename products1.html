@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Products — Affiliate Store</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-wrap">
+    <header class="header">
+      <div class="site-title">🛒 Affiliate Store</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="categories.html">Categories</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section style="margin-top:18px;">
+      <div class="controls">
+        <div class="search" style="width:60%">
+          <input id="q" type="search" placeholder="Search products by name..." oninput="applyFilters()">
+        </div>
+        <select id="cat" class="select" onchange="applyFilters()">
+          <option value="all">All Categories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Beauty">Beauty</option>
+          <option value="Home">Home & Kitchen</option>
+          <option value="Sports">Sports</option>
+        </select>
+      </div>
+
+      <div id="productsGrid" class="grid"></div>
+    </section>
+
+    <footer class="footer">© 2025 Affiliate Store</footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const grid = document.getElementById('productsGrid');
+
+    function applyFilters(){
+      const q = document.getElementById('q').value.trim().toLowerCase();
+      const cat = document.getElementById('cat').value;
+      let filtered = PRODUCTS.filter(p=>{
+        const nameMatch = p.name.toLowerCase().includes(q);
+        const catMatch = (cat === 'all') || (p.category === cat);
+        return nameMatch && catMatch;
+      });
+
+      // if page opened with ?category=Sports etc, apply param
+      const initialCategory = getQueryParam('category');
+      if(initialCategory) filtered = filtered.filter(p=>p.category === initialCategory);
+
+      renderProductCards(grid, filtered);
+    }
+
+    // initial render
+    applyFilters();
+  </script>
+</body>
+</html>

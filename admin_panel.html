@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Admin Panel Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            
+        }
+        .tab-btn.active {
+            border-color: #EF4444; /* Red border for active tab */
+            color: #EF4444;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+
+    <div class="container mx-auto max-w-7xl">
+
+        <div id="login-page" class="max-w-md mx-auto bg-white rounded-xl shadow-2xl p-8 mt-16">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Admin Login</h2>
+            <p class="text-center text-sm text-gray-500 mb-4"></p>
+            <form id="login-form">
+                <div class="mb-4">
+                    <label for="login-email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                    <input type="email" id="login-email" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500" required placeholder="admin@email.com" value="admin@test.com">
+                </div>
+                <div class="mb-6">
+                    <label for="login-password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                    <input type="password" id="login-password" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-500" required placeholder="****" value="1234">
+                </div>
+                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300">
+                    Log In
+                </button>
+            </form>
+        </div>
+
+        <div id="dashboard-page" class="hidden">
+            <header class="bg-white shadow-md rounded-lg p-6 mb-8 flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Admin Panel</h1>
+                    <p id="welcome-message" class="text-gray-600">Welcome, Admin!</p>
+                </div>
+                <button id="logout-btn" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300">
+                    Logout
+                </button>
+            </header>
+
+            <div class="flex border-b border-gray-200 mb-6 bg-white rounded-t-lg shadow-sm">
+                <button data-tab="review" class="tab-btn active px-6 py-3 text-lg text-gray-600 border-b-2 border-transparent hover:border-red-400 transition duration-150">
+                    Product Review
+                </button>
+                <button data-tab="vendors" class="tab-btn px-6 py-3 text-lg text-gray-600 border-b-2 border-transparent hover:border-red-400 transition duration-150">
+                    Vendor Management
+                </button>
+                <button data-tab="sales" class="tab-btn px-6 py-3 text-lg text-gray-600 border-b-2 border-transparent hover:border-red-400 transition duration-150">
+                    Sales & Reports
+                </button>
+            </div>
+
+            <div id="review-tab" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white p-5 rounded-lg shadow-lg border-l-4 border-indigo-500">
+                        <p class="text-sm font-medium text-indigo-500">Pending Review</p>
+                        <p id="pending-count" class="text-2xl font-bold text-gray-900 mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-lg border-l-4 border-green-500">
+                        <p class="text-sm font-medium text-green-500">Approved Products</p>
+                        <p id="approved-count" class="text-2xl font-bold text-gray-900 mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-lg border-l-4 border-red-500">
+                        <p class="text-sm font-medium text-red-500">Rejected Products</p>
+                        <p id="rejected-count" class="text-2xl font-bold text-gray-900 mt-1">0</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Products for Review</h3>
+                    <div id="product-review-list" class="space-y-4">
+                        </div>
+                </div>
+            </div>
+
+            <div id="vendors-tab" class="tab-content hidden">
+                <div class="bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Registered Vendors</h3>
+                    <div id="vendor-list" class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vendor ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Products</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vendor-table-body" class="bg-white divide-y divide-gray-200">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sales-tab" class="tab-content hidden">
+                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-5 rounded-lg shadow-lg border-l-4 border-green-700">
+                        <p class="text-sm font-medium text-green-700">Total Sales</p>
+                        <p id="total-sales" class="text-2xl font-bold text-gray-900 mt-1">₹ 0</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-lg border-l-4 border-purple-500">
+                        <p class="text-sm font-medium text-purple-500">Total Orders</p>
+                        <p id="total-orders" class="text-2xl font-bold text-gray-900 mt-1">0</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-lg border-l-4 border-blue-500">
+                        <p class="text-sm font-medium text-blue-500">Avg. Order Value</p>
+                        <p id="avg-order" class="text-2xl font-bold text-gray-900 mt-1">₹ 0</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-lg border-l-4 border-yellow-500">
+                        <p class="text-sm font-medium text-yellow-500">Admin Commission</p>
+                        <p id="total-commission" class="text-2xl font-bold text-gray-900 mt-1">₹ 0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Latest Orders</h3>
+                    <div id="latest-orders-list" class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vendor</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body" class="bg-white divide-y divide-gray-200">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // --- Page elements ---
+        const loginPage = document.getElementById('login-page');
+        const dashboardPage = document.getElementById('dashboard-page');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Review Tab elements
+        const productReviewList = document.getElementById('product-review-list');
+        const pendingCount = document.getElementById('pending-count');
+        const approvedCount = document.getElementById('approved-count');
+        const rejectedCount = document.getElementById('rejected-count');
+        
+        // Vendor Tab elements
+        const vendorTableBody = document.getElementById('vendor-table-body');
+
+        // Sales Tab elements
+        const totalSalesEl = document.getElementById('total-sales');
+        const totalOrdersEl = document.getElementById('total-orders');
+        const avgOrderEl = document.getElementById('avg-order');
+        const totalCommissionEl = document.getElementById('total-commission');
+        const ordersTableBody = document.getElementById('orders-table-body');
+
+        // --- Dummy Data ---
+        let productsToReview = [
+            { id: 201, name: "Premium Coffee Maker", vendor: "nikhil", price: 3500, status: "Approved", image: "https://placehold.co/100x70/964B00/fff?text=Coffee" },
+            { id: 202, name: "Wireless Earbuds Pro", vendor: "nikhil", price: 5999, status: "Approved", image: "https://placehold.co/100x70/4F46E5/fff?text=Earbuds" },
+            { id: 203, name: "Organic Honey Jar", vendor: "nikhil", price: 850, status: "Approved", image: "https://placehold.co/100x70/F59E0B/000?text=Honey" },
+            { id: 204, name: "Gaming Mouse Pad XL", vendor: "nikhil", price: 1200, status: "Approved", image: "https://placehold.co/100x70/1F2937/fff?text=MousePad" },
+            { id: 205, name: "Portable Blender", vendor: "nikhil", price: 2100, status: "Approved", image: "https://placehold.co/100x70/EF4444/fff?text=Blender" },
+            { id: 101, name: "Luxury Smartwatch", price: 7999,status: "Approved", image: "https://m.media-amazon.com/images/I/41KFr6GknZL._SY300_SX300_QL70_FMwebp_.jpg" },
+  { id: 102, name: "Premium Coffee Maker", vendor: "nikhil",price: 3999, status: "Approved",image: "https://m.media-amazon.com/images/I/41Bhd+j3pML.jpg" },
+  { id: 106, name: "Portable Power Bank",vendor: "nikhil", price: 1599,status: "Approved", image: "https://www.shutterstock.com/image-photo/modern-smart-phone-charging-help-260nw-2310718049.jpg" },
+  { 
+    id: 114, 
+    name: "Classic Leather Jacket", 
+    desc: "100% genuine leather se bani high-quality jacket.", 
+    vendor: "nikhil",
+    price: 4999, 
+    mrp: 5999, 
+    status: "Approved",
+    image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcR1N-BEPqhWOHj026clduFiJI0ce0ZUyveoYAxCTf1b5I9Y9BHDoluqQ5uOG4Q46BYRkxTIUk2bW1I9jkDR0yTDqzEjaMbgBFobz0JFaDo", 
+  },
+  { 
+    id: 115, 
+    name: "Wireless Bluetooth Headphones", 
+    desc: "Noise-cancelling feature aur 20 ghante ki battery life.",
+    vendor: "nikhil", 
+    price: 2499, 
+    mrp: 2999, 
+    status: "Approved",
+    image: "https://m.media-amazon.com/images/I/61XvYOrqVeL.jpg" 
+  },
+  { 
+    id: 116, 
+    name: "Ergonomic Office Chair", 
+    desc: "Din bhar ke kaam ke liye aaraamdayak mesh back support.",
+    vendor: "nikhil", 
+    price: 8900, 
+    mrp: 9999, 
+    status: "Approved",
+    image: "https://magnoliahome.co.in/wp-content/uploads/2021/08/Jasper-Arm-Chair-1.1-1.jpg" 
+  },
+  { 
+    id: 117, 
+    name: "Smart LED TV 43-inch", 
+    desc: "4K Ultra HD resolution, HDR10 support aur Dolby Audio.", 
+    vendor: "nikhil",
+    price: 24999, 
+    mrp: 29999, 
+    status: "Approved",
+    image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcR1TuX3l1rGuxK-FFTDNXTBfzK9jDunWEcRqaWo40ADqVFBAeARmOS2wGLBYcxEFhcqAXkxZmgBEzYFxo04qpzl2bxD9oxvCPM9j07bOt7a-gu3-lcvtSnQ" 
+  },
+  { 
+    id: 118, 
+    name: "Gaming Keyboard RGB", 
+    desc: "Backlit keys aur mechanical switches for fast response.", 
+    vendor: "nikhil",
+    price: 2299, 
+    mrp: 2799, 
+    status: "Approved",
+    image: "https://m.media-amazon.com/images/I/61QxkJGYxeL.jpg" 
+  },
+  { 
+    id: 119, 
+    name: "Portable Bluetooth Speaker", 
+    desc: "Water-resistant, deep bass aur 10 ghante battery backup.", 
+    vendor: "nikhil",
+    price: 1899, 
+    mrp: 2499, 
+    status: "Approved",
+    image: "https://img.freepik.com/premium-vector/black-speaker-with-white-background-that-says-speaker_1230457-40217.jpg?semt=ais_hybrid&w=740&q=80" 
+  },
+  { 
+    id: 220, 
+    name: "Stainless Steel Water Bottle", 
+    desc: "Double wall insulated design keeps drinks hot/cold for 12 hours.", 
+    vendor: "nikhil",
+    price: 799, 
+    mrp: 999, 
+    status: "Approved",
+    image: "data:image/jpeg;base64,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" 
+  },
+  { 
+    id: 221, 
+    name: "Green Cotton Kurti Lehenga Sets With Dupatta", 
+    desc: "Elevate your traditional style with Divena's stylish Green Cotton Kurti Lehenga Set and Dupatta. Made with high-quality cotton fabric, this set is perfect for any occasion. Shop now and get the perfect ethnic look you've been dreaming of. Hurry, limited stock available!", 
+    vendor: "nikhil",
+    price: 3000, 
+    mrp: 4999, 
+    status: "Approved",
+    image: "https://divenaworld.com/cdn/shop/files/DK2257.1.jpg?v=1757394135&width=720" 
+  },
+  { 
+    id: 222, 
+    name: "Pink Cotton Kurti Lehenga Sets With Dupatta", 
+    desc: "Elevate your traditional style with Divena's stylish Green Cotton Kurti Lehenga Set and Dupatta. Made with high-quality cotton fabric, this set is perfect for any occasion. Shop now and get the perfect ethnic look you've been dreaming of. Hurry, limited stock available!", 
+    vendor: "nikhil",
+    price: 9999, 
+    mrp: 4999, 
+    status: "Approved",
+    image: "https://divenaworld.com/cdn/shop/files/DK2256.1.jpg?v=1757394397&width=720" 
+  },
+  
+    { 
+    id: 222, 
+    name: "Brass Laser Cut OM Circle with Lamp", 
+    desc: "quality metal, this decor piece features a gold-finished circular panel with a sacred OM design at its center, symbolizing purity and universal energy.!", 
+    vendor: "nikhil",
+    price: 2380, 
+    mrp:2380 , 
+    status: "Approved",
+    image: "https://artycraftz.com/cdn/shop/files/Brass_Laser_Cut_OM_Circle_with_Lamp.jpg?v=1760359195&width=823" 
+  },
+   { 
+    id: 223, 
+    name: "Brass Lord Dhanvantri 18 Inches Statue – Symbol of Health & Prosperity", 
+    desc: "Bring home divine blessings with the Brass Lord Dhanvantri 18 Inches Statue, exquisitely handcrafted to represent the God of Ayurveda and healing.!", 
+    vendor: "nikhil",
+    price: 15500, 
+    mrp:13049, 
+    status: "Approved",
+    image: "https://artycraftz.com/cdn/shop/files/Brass_Lord_Dhanvantri_18_Inches_Statue.jpg?v=1760001017&width=823"
+   },
+   {
+  id: 224,
+  name: "Light Pink 3 Sections Diamonds and Fringes Macrame Cushion Cover",
+  desc: "Space with this Light Pink 3 Sections Diamonds and Fringes Macrame Cushion Cover. Crafted by skilled artisans, it showcases a detailed diamond pattern with playful fringes, creating a perfect blend of boho charm and modern minimalism. The soothing pink hue brings warmth and elegance to your sofa, bed, or lounge area.",
+  vendor: "nikhil",
+  price: 550, // agar aapke liye selling price alag hai
+  mrp: 615,
+  status: "Approved",
+  image: "https://artycraftz.com/cdn/shop/files/i105_8_16_3.webp?v=1760018486&width=493"
+},
+ {
+  id: 225,
+  name: "5 Squares Pattern Off White Macrame Cushion Cover",
+  desc: "Designed with durability in mind, it comes with a concealed zip closure for easy insert removal and maintenance",
+  vendor: "nikhil",
+  price: 480, // agar aapke liye selling price alag hai
+  mrp: 800,
+  status: "Approved",
+  image: "https://artycraftz.com/cdn/shop/files/5_Squares_Pattern_Off_White_Macrame_Cushion_Cover.webp?v=1760017870&width=493"
+},
+        ];
+
+        let vendors = [
+            // { id: 1, name: "ShopEasy", email: "shop@easy.com", totalProducts: 15, status: "Active" },
+            // { id: 2, name: "TechGuru", email: "tech@guru.com", totalProducts: 25, status: "Active" },
+            // { id: 3, name: "NatureFoods", email: "nature@foods.com", totalProducts: 8, status: "Active" },
+            // { id: 4, name: "GameZone", email: "game@zone.com", totalProducts: 40, status: "Active" },
+            { id: 4, name: "nikhil", email: "admin@test.com", totalProducts: 10, status: "Active" },
+
+        ];
+
+        // let orders = [
+        // //     { id: 5001, customer: "Ravi K.", vendor: "TechGuru", amount: 5999, status: "Delivered", date: "2025-10-10" },
+        // //     { id: 5002, customer: "Priya S.", vendor: "ShopEasy", amount: 3500, status: "Processing", date: "2025-10-11" },
+        // //     { id: 5003, customer: "Amit M.", vendor: "NatureFoods", amount: 850, status: "Delivered", date: "2025-10-09" },
+        // //     { id: 5004, customer: "Neha T.", vendor: "GameZone", amount: 1200, status: "Shipped", date: "2025-10-12" },
+        // //     { id: 5005, customer: "Vikram P.", vendor: "TechGuru", amount: 15000, status: "Cancelled", date: "2025-10-08" },
+        // // ];
+
+        const ADMIN_COMMISSION_RATE = 0.10; // 10% commission rate
+
+        // --- Helper Functions ---
+
+        function showPage(page) {
+            loginPage.classList.add('hidden');
+            dashboardPage.classList.add('hidden');
+            page.classList.remove('hidden');
+        }
+
+        function switchTab(tabId) {
+            tabContents.forEach(content => content.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-tab="${tabId.replace('-tab', '')}"]`).classList.add('active');
+            
+            // Render content for the active tab
+            if (tabId === 'review-tab') renderProducts();
+            if (tabId === 'vendors-tab') renderVendors();
+            if (tabId === 'sales-tab') renderSales();
+        }
+
+        // --- Render Functions ---
+
+        function updateReviewStats() {
+            const pending = productsToReview.filter(p => p.status === 'Pending').length;
+            const approved = productsToReview.filter(p => p.status === 'Approved').length;
+            const rejected = productsToReview.filter(p => p.status === 'Rejected').length;
+
+            pendingCount.textContent = pending;
+            approvedCount.textContent = approved;
+            rejectedCount.textContent = rejected;
+        }
+
+        function renderProducts() {
+            productReviewList.innerHTML = '';
+            
+            // Sort by Pending first
+            const sortedProducts = productsToReview.sort((a, b) => {
+                if (a.status === 'Pending' && b.status !== 'Pending') return -1;
+                if (a.status !== 'Pending' && b.status === 'Pending') return 1;
+                return 0;
+            });
+
+            sortedProducts.forEach(product => {
+                let statusColor = 'bg-yellow-100 text-yellow-800';
+                if (product.status === 'Approved') statusColor = 'bg-green-100 text-green-800';
+                if (product.status === 'Rejected') statusColor = 'bg-red-100 text-red-800';
+
+                const actions = product.status === 'Pending' ? `
+                    <button data-id="${product.id}" data-action="approve" class="action-btn bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-1 px-3 rounded-lg transition duration-200">Approve</button>
+                    <button data-id="${product.id}" data-action="reject" class="action-btn bg-red-500 hover:bg-red-600 text-white text-sm font-medium py-1 px-3 rounded-lg transition duration-200">Reject</button>
+                ` : `
+                    <span class="text-sm text-gray-500">Status: ${product.status}</span>
+                `;
+
+                const productCard = `
+                    <div class="flex items-center bg-gray-50 p-4 rounded-lg shadow-sm">
+                        <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover rounded-md mr-4">
+                        <div class="flex-grow">
+                            <h4 class="text-lg font-semibold text-gray-800">${product.name} <span class="ml-2 px-2 py-0.5 text-xs font-medium rounded-full ${statusColor}">${product.status}</span></h4>
+                            <p class="text-sm text-gray-600">Vendor: ${product.vendor} | Price: ₹ ${product.price.toLocaleString('en-IN')}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            ${actions}
+                        </div>
+                    </div>
+                `;
+                productReviewList.innerHTML += productCard;
+            });
+
+            // Attach event listeners for product actions
+            document.querySelectorAll('.action-btn').forEach(button => {
+                button.addEventListener('click', handleProductAction);
+            });
+            
+            updateReviewStats();
+        }
+
+        function renderVendors() {
+            vendorTableBody.innerHTML = '';
+            vendors.forEach(vendor => {
+                const statusColor = vendor.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800';
+                const actionButton = vendor.status === 'Active' ? 
+                    `<button data-id="${vendor.id}" data-action="suspend" class="vendor-action-btn text-sm text-red-600 hover:text-red-800 font-medium">Suspend</button>` :
+                    `<button data-id="${vendor.id}" data-action="activate" class="vendor-action-btn text-sm text-green-600 hover:text-green-800 font-medium">Activate</button>`;
+                
+                const vendorRow = `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${vendor.id}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${vendor.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${vendor.email}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${vendor.totalProducts}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusColor}">${vendor.status}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            ${actionButton}
+                        </td>
+                    </tr>
+                `;
+                vendorTableBody.innerHTML += vendorRow;
+            });
+
+            // Attach event listeners for vendor actions
+            document.querySelectorAll('.vendor-action-btn').forEach(button => {
+                button.addEventListener('click', handleVendorAction);
+            });
+        }
+        
+        function renderSales() {
+            const deliveredOrders = orders.filter(o => o.status === 'Delivered' || o.status === 'Shipped');
+            const totalSales = deliveredOrders.reduce((sum, order) => sum + order.amount, 0);
+            const totalOrders = orders.length;
+            const avgOrder = deliveredOrders.length > 0 ? (totalSales / deliveredOrders.length).toFixed(2) : 0;
+            // Commission Calculation: 10% of total delivered sales
+            const totalCommission = (totalSales * ADMIN_COMMISSION_RATE).toFixed(2); 
+
+            totalSalesEl.textContent = `₹ ${totalSales.toLocaleString('en-IN')}`;
+            totalOrdersEl.textContent = totalOrders;
+            avgOrderEl.textContent = `₹ ${parseFloat(avgOrder).toLocaleString('en-IN')}`;
+            totalCommissionEl.textContent = `₹ ${parseFloat(totalCommission).toLocaleString('en-IN')}`;
+
+            ordersTableBody.innerHTML = '';
+            orders.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(order => {
+                let statusColor = 'bg-yellow-100 text-yellow-800';
+                if (order.status === 'Delivered') statusColor = 'bg-green-100 text-green-800';
+                if (order.status === 'Cancelled') statusColor = 'bg-red-100 text-red-800';
+                if (order.status === 'Shipped') statusColor = 'bg-blue-100 text-blue-800';
+                if (order.status === 'Processing') statusColor = 'bg-indigo-100 text-indigo-800';
+
+                const orderRow = `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${order.id}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${order.customer}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">${order.vendor}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600">₹ ${order.amount.toLocaleString('en-IN')}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusColor}">${order.status}</span>
+                        </td>
+                    </tr>
+                `;
+                ordersTableBody.innerHTML += orderRow;
+            });
+        }
+
+
+        // --- Action Handlers ---
+
+        function handleProductAction(e) {
+            const productId = parseInt(e.currentTarget.getAttribute('data-id'));
+            const action = e.currentTarget.getAttribute('data-action');
+            
+            const productIndex = productsToReview.findIndex(p => p.id === productId);
+
+            if (productIndex !== -1) {
+                if (action === 'approve') {
+                    productsToReview[productIndex].status = 'Approved';
+                    alert(`${productsToReview[productIndex].name} has been Approved.`);
+                } else if (action === 'reject') {
+                    productsToReview[productIndex].status = 'Rejected';
+                    alert(`${productsToReview[productIndex].name} has been Rejected.`);
+                }
+                renderProducts(); 
+            }
+        }
+        
+        function handleVendorAction(e) {
+            const vendorId = parseInt(e.currentTarget.getAttribute('data-id'));
+            const action = e.currentTarget.getAttribute('data-action');
+            
+            const vendorIndex = vendors.findIndex(v => v.id === vendorId);
+
+            if (vendorIndex !== -1) {
+                if (action === 'suspend') {
+                    vendors[vendorIndex].status = 'Suspended';
+                    alert(`${vendors[vendorIndex].name} has been Suspended.`);
+                } else if (action === 'activate') {
+                    vendors[vendorIndex].status = 'Active';
+                    alert(`${vendors[vendorIndex].name} has been Activated.`);
+                }
+                renderVendors();
+            }
+        }
+
+        // --- Event Listeners ---
+        
+        // Tab Switching
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab') + '-tab';
+                switchTab(tabId);
+            });
+        });
+
+        // Login Handler
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Dummy Admin Login Logic
+            if (email === 'admin@test.com' && password === '1234') {
+                const userName = email.split('@')[0];
+                document.getElementById('welcome-message').textContent = `Welcome, Admin (${userName})!`;
+                showPage(dashboardPage);
+                // Default to the first tab (Product Review) on login
+                switchTab('review-tab'); 
+            } else {
+                alert('Invalid Admin Credentials (Use: admin@test.com / 1234)');
+            }
+            loginForm.reset();
+        });
+        
+        // Logout Handler
+        logoutBtn.addEventListener('click', () => {
+            alert('Logged out successfully.');
+            showPage(loginPage);
+        });
+        
+        // --- Initial State ---
+        showPage(loginPage);
+
+        // Example: routes/product.js
+app.post("/api/products", async (req, res) => {
+  const { name, desc, price, mrp, image } = req.body;
+  const product = new Product({ name, desc, price, mrp, image, approved: false });
+  await product.save();
+  res.json({ success: true });
+});
+
+    </script>
+
+</body>
+</html>

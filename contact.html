@@ -1,0 +1,102 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — Affiliate Store</title>
+  <link rel="stylesheet" href="affliate.css">
+</head>
+<body>
+  <div class="site-wrap">
+    <header class="header">
+      <div class="site-title">🛒 Affiliate Store</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="categories.html">Categories</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section style="margin-top:18px">
+      <h2 style="color:var(--accent)">Contact Us</h2>
+      <div style="margin-top:12px;padding:18px;background:#fff;border-radius:12px;box-shadow:var(--card-shadow)">
+        <p>If you have questions, partnership requests or want a custom feed — write below:</p>
+        <form id="contactForm">
+          <input id="cname" placeholder="Your name" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-top:8px">
+          <input id="cemail" type="email" placeholder="Email" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-top:8px">
+          <textarea id="cmsg" rows="5" placeholder="Message" style="width:100%;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-top:8px"></textarea>
+          <div style="margin-top:10px"><button type="button" class="btn btn-primary" onclick="submitContact()">Send Message</button></div>
+        </form>
+      </div>
+    </section>
+    
+
+    <footer class="footer">© 2025 Affiliate Store</footer>
+  </div>
+
+  <script>
+    function submitContact(){
+      const name = document.getElementById('cname').value.trim();
+      const email = document.getElementById('cemail').value.trim();
+      const msg = document.getElementById('cmsg').value.trim();
+      if(!name || !email || !msg){ alert('Please fill all fields'); return; }
+      alert('Message sent — demo only. Thank you, ' + name + '!');
+      document.getElementById('contactForm').reset();
+    }
+  </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — Affiliate Store</title>
+  <link href="contact.css" rel="stylesheet">
+  
+</head>
+<body>
+  <div class="site-wrap">
+    <header class="header">
+      <div class="site-title">Contact Us</div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="affliate.html">Products</a>
+        <a href="categories.html">Categories</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section>
+      <h2>Contact Us</h2>
+      <p>Got questions, feedback, or partnership requests? We’d love to hear from you 👋</p>
+      <form id="contactForm">
+        <input id="cname" placeholder="Your name">
+        <input id="cemail" type="email" placeholder="Your email">
+        <textarea id="cmsg" rows="5" placeholder="Your message"></textarea>
+        <button type="button" class="btn-primary" onclick="submitContact()">Send Message</button>
+      </form>
+    </section>
+
+    <footer class="footer">© 2025 Affiliate Store • Made with ❤️ by You</footer>
+  </div>
+
+  <script>
+    function submitContact(){
+      const name = document.getElementById('cname').value.trim();
+      const email = document.getElementById('cemail').value.trim();
+      const msg = document.getElementById('cmsg').value.trim();
+      if(!name || !email || !msg){
+        alert('⚠️ Please fill all fields before submitting.');
+        return;
+      }
+      alert('✅ Message sent successfully! Thank you, ' + name + '.');
+      document.getElementById('contactForm').reset();
+    }
+  </script>
+</body>
+</html>
