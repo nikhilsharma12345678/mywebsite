@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Affiliate Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Inter', sans-serif;
+    }
+    .or-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .or-divider::before, .or-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #ccc;
+    }
+    .or-divider:not(:empty)::before { margin-right: .75em; }
+    .or-divider:not(:empty)::after { margin-left: .75em; }
+  </style>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-900 bg-opacity-70">
+
+  <!-- Affiliate Login -->
+  <div class="bg-white p-8 rounded-2xl shadow-2xl w-96">
+    <h1 class="text-2xl font-bold mb-6 text-center text-green-600">Affiliate Login</h1>
+
+    <label class="block mb-2 font-semibold">Email</label>
+    <input id="email" type="email" placeholder="Enter your email" class="w-full p-2 border rounded-lg mb-4 focus:ring focus:ring-green-300">
+
+    <label class="block mb-2 font-semibold">Password</label>
+    <input id="password" type="password" placeholder="Enter your password" class="w-full p-2 border rounded-lg mb-4 focus:ring focus:ring-green-300">
+
+    <button onclick="loginAffiliate()" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold">Login</button>
+
+    <p id="errorMsg" class="text-red-500 text-sm mt-3 text-center hidden">Invalid email or password</p>
+
+    <p class="text-center mt-3">
+      <a href="#" class="text-green-600 hover:underline" onclick="showForgot()">Forgot Password?</a>
+    </p>
+
+    <div class="or-divider"><span>or</span></div>
+
+    <button class="w-full flex items-center justify-center gap-2 border py-2 rounded-lg font-semibold hover:bg-gray-100" onclick="googleLogin()">
+      <i class="fab fa-google text-red-500"></i> Login with Google
+    </button>
+
+    <div class="text-center mt-6">
+      <p class="text-gray-700">New Affiliate?</p>
+<a href="affiliate_register.html" class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold mt-4">
+  Create Account
+</a>
+
+  </div>
+
+  <script>
+    function loginAffiliate() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const error = document.getElementById('errorMsg');
+
+      if (email === "affiliate@gmail.com" && password === "67890") {
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "affiliate_dashboard.html";
+      } else {
+        error.classList.remove("hidden");
+      }
+    }
+
+    function googleLogin() {
+      alert("Google login feature coming soon!");
+    }
+
+    function createAccount() {
+      alert("Redirecting to affiliate registration page...");
+    }
+
+    function showForgot() {
+      alert("Password reset link sent to your registered email!");
+    }
+  </script>
+
+</body>
+</html>

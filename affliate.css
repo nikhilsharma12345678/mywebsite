@@ -31,6 +31,7 @@
             margin-left: 20px;
         }
 
+        
         .search-container:focus-within {
             box-shadow: 0 0 10px var(--primary-yellow);
         }
@@ -146,6 +147,42 @@
       width: 25px;
       border-radius: 5px;
     }
+     
+    .btn-buy {
+      background: linear-gradient(135deg, #3b82f6, #06b6d4);
+      color: white;
+      font-weight: 600;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-buy:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    }
+
+    .share-btn {
+    display: inline-block;
+    background-color: #10b981; /* green color */
+    color: white;
+    font-weight: 600;
+    padding: 6px 12px;
+    margin: 5px 2px 0 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.share-btn:hover {
+    background-color: #059669; /* darker green */
+}
 
     /* Hero
     .hero {
@@ -362,4 +399,27 @@
       .hero img {width:100%; max-width: 320px;}
     }
 
-    
+    /* CSS */
+.affiliate-login-btn {
+  background-color: #FF9900; /* Amazon style orange */
+  color: white;
+  font-weight: bold;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.affiliate-login-btn:hover {
+  background-color: #e68a00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.25);
+}
+
+.affiliate-login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}

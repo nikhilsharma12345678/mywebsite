@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Users</title>
+<link rel="stylesheet" href="admin.affiliate.users.css">
+</head>
+<body>
+
+<header>
+  👥 User Management
+  <button onclick="logout()">Logout</button>
+</header>
+
+<aside>
+  <ul>
+    <li><a href="index.html">🏠 Dashboard</a></li>
+    <li><a href="adminproducts.html">📦 Products</a></li>
+    <li><a href="vendors.html">🏪 Vendors</a></li>
+    <li><a href="affiliates.html">📈 Affiliates</a></li>
+    <li><a href="users.html" class="active">👥 Users</a></li>
+    <li><a href="Analytics.html">📊 Analytics</a></li>
+    <li><a href="setting-admin.html">⚙️ Settings</a></li>
+  </ul>
+</aside>
+
+<main>
+  <div id="notification" class="notification"></div>
+
+  <button onclick="openModal('user')">Add User</button>
+  <input type="text" id="user-search" placeholder="Search User..." onkeyup="searchTable('user')">
+
+  <table>
+    <thead><tr><th>Photo</th><th>Name</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="user-list"></tbody>
+  </table>
+
+  <div id="user-pagination" class="pagination">
+    <button onclick="prevPage('user')">Prev</button>
+    <span id="user-page-info">1 / 1</span>
+    <button onclick="nextPage('user')">Next</button>
+  </div>
+</main>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <h3 id="modal-title">Add User</h3>
+    <img id="preview" src="" style="display:none;">
+    <input type="file" id="image-input" accept="image/*" onchange="previewImage(event)">
+    <input type="text" id="modal-name" placeholder="Enter User Name">
+    <button onclick="saveItem()">Save</button>
+    <button onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<script>
+let data = JSON.parse(localStorage.getItem('adminData')) || {product:[],user:[],vendor:[],affiliate:[]};
+let editId=null, rowsPerPage=5, currentPage={user:1};
+
+function saveData(){ localStorage.setItem('adminData', JSON.stringify(data)); }
+
+function openModal(type,id=null){
+  document.getElementById('modal').style.display='flex';
+  document.getElementById('modal-title').innerText = id ? 'Edit User' : 'Add User';
+  const name=document.getElementById('modal-name');
+  const preview=document.getElementById('preview');
+  if(id){
+    const item=data[type].find(i=>i.id===id);
+    name.value=item.name; preview.src=item.image; preview.style.display=item.image?'block':'none';
+  } else { name.value=''; preview.style.display='none'; }
+  editId=id;
+}
+
+function closeModal(){ document.getElementById('modal').style.display='none'; editId=null; }
+
+function previewImage(e){
+  const file=e.target.files[0];
+  if(file){
+    const reader=new FileReader();
+    reader.onload=(evt)=>{ document.getElementById('preview').src=evt.target.result; document.getElementById('preview').style.display='block'; };
+    reader.readAsDataURL(file);
+  }
+}
+
+function saveItem(){
+  const name=document.getElementById('modal-name').value.trim();
+  const img=document.getElementById('preview').src;
+  if(!name){alert('Enter user name');return;}
+  if(editId){
+    const item=data.user.find(i=>i.id===editId);
+    item.name=name; item.image=img;
+  } else {
+    data.user.push({id:Date.now(), name, image:img, status:'Active'});
+  }
+  saveData(); renderTable(); closeModal();
+}
+
+function renderTable(){
+  const tbody=document.getElementById('user-list'); tbody.innerHTML='';
+  data.user.forEach(item=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><img src="${item.image||'https://via.placeholder.com/50'}" class="thumb"></td>
+      <td>${item.name}</td>
+      <td>${item.status}</td>
+      <td>
+        <button class="edit-btn" onclick="openModal('user', ${item.id})">Edit</button>
+        <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
+        <button class="status-btn" onclick="toggleStatus(${item.id})">${item.status==='Active'?'Deactivate':'Activate'}</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+  updatePagination();
+}
+
+function deleteItem(id){
+  if(confirm('Are you sure?')){
+    data.user=data.user.filter(i=>i.id!==id);
+    saveData(); renderTable();
+  }
+}
+
+function toggleStatus(id){
+  const item=data.user.find(i=>i.id===id);
+  item.status=item.status==='Active'?'Inactive':'Active';
+  saveData(); renderTable();
+}
+
+function searchTable(){
+  const q=document.getElementById('user-search').value.toLowerCase();
+  const tbody=document.getElementById('user-list');
+  Array.from(tbody.children).forEach(row=>{
+    row.style.display=row.children[1].innerText.toLowerCase().includes(q)?'':'none';
+  });
+}
+
+function updatePagination(){
+  const tbody=document.getElementById('user-list');
+  const rows=Array.from(tbody.children);
+  const totalPages=Math.ceil(rows.length/rowsPerPage);
+  if(currentPage.user>totalPages) currentPage.user=totalPages||1;
+  rows.forEach((r,i)=>r.style.display=(i>=(currentPage.user-1)*rowsPerPage&&i<currentPage.user*rowsPerPage)?'':'none');
+  document.getElementById('user-page-info').innerText=`${currentPage.user} / ${totalPages||1}`;
+}
+
+function nextPage(){currentPage.user++;updatePagination();}
+function prevPage(){currentPage.user--;updatePagination();}
+
+renderTable();
+</script>
+</body>
+</html>

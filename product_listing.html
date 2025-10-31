@@ -1,0 +1,81 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Products - Customer View</title>
+    <link rel="stylesheet" href="listing_styles.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/645b736b7c.js" crossorigin="anonymous"></script> 
+</head>
+<body>
+    <div class="product-listing-header">
+        <h1>Your Products (Customer View)</h1>
+        <p>This shows all products saved by the vendor. Only vendors see the 'Delete' option.</p>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+        <p style="text-align: center; color: #777;">No products found. Please add a product from the Vendor Panel first.</p>
+    </div>
+
+    <script src="vendor_panel.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', displayProducts);
+
+        function displayProducts() {
+            const products = JSON.parse(localStorage.getItem('vendorProducts')) || [];
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            if (products.length === 0) {
+                 grid.innerHTML = '<p style="text-align: center; color: #777;">No products found. Please add a product from the Vendor Panel first.</p>';
+                 return;
+            }
+
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <p class="price">₹ ${product.price}</p>
+                        <p class="description">${product.description.substring(0, 50)}...</p>
+                        <p class="stock">In Stock: ${product.quantity}</p>
+                        
+                        <div class="action-buttons">
+                            <button class="cart-btn" onclick="alert('Added ${product.name} to Cart!')"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            <button class="buy-btn" onclick="alert('Buying ${product.name} Now!')">Buy Now</button>
+                        </div>
+                        
+                        <div class="vendor-actions">
+                            <button class="share-btn" onclick="shareProduct('${product.name}', '${product.image}')"><i class="fas fa-share-alt"></i> Share</button>
+                            <button class="delete-btn" onclick="deleteAndRefresh('${product.id}')"><i class="fas fa-trash"></i> Delete (Vendor)</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(productCard);
+            });
+        }
+        
+        // Wrapper function to handle deletion and page refresh
+        function deleteAndRefresh(productId) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                 // **यह deleteProduct फ़ंक्शन vendor_panel.js में होना चाहिए!**
+                 if (typeof deleteProduct === 'function') { 
+                    deleteProduct(productId);
+                    displayProducts(); // Refresh the list
+                 } else {
+                    alert("Fatal Error: 'deleteProduct' function is not found. Check vendor_panel.js.");
+                 }
+            }
+        }
+        
+        // Simulated Share Function
+        function shareProduct(name, imageUrl) {
+             alert(\`Sharing details for: \${name}\nImage: \${imageUrl}\n\n(In a real app, this uses the device's share functionality.)\`);
+        }
+    </script>
+</body>
+</html> -->

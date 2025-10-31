@@ -1,0 +1,220 @@
+/* ======== GLOBAL STYLES ======== */
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f3f4f6;
+  margin: 0;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+/* ======== SIDEBAR ======== */
+aside {
+  background: linear-gradient(180deg, #1e3a8a, #1d4ed8);
+  color: white;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.sidebar-header p {
+  color: #c7d2fe;
+  margin-top: 4px;
+}
+
+nav {
+  flex: 1;
+  padding: 1rem;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: #e0e7ff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: rgba(59, 130, 246, 0.3);
+  transform: translateX(4px);
+}
+
+nav a.active {
+  background-color: rgba(59, 130, 246, 0.5);
+  color: white;
+}
+
+aside button {
+  background-color: #dc2626;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+aside button:hover {
+  background-color: #b91c1c;
+}
+
+/* ======== MAIN CONTENT ======== */
+main {
+  margin-left: 260px;
+  padding: 2rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+main h2 {
+  color: #1e3a8a;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ======== DASHBOARD CARDS ======== */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid > div {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid > div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.grid h3 {
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.grid p {
+  margin-top: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* ======== TABLE SECTION ======== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  background-color: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+  padding: 12px 8px;
+}
+
+td {
+  padding: 12px 8px;
+  border-top: 1px solid #e5e7eb;
+}
+
+tr:hover {
+  background-color: #f3f4f6;
+}
+
+button.text-blue-600 {
+  color: #2563eb;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button.text-blue-600:hover {
+  text-decoration: underline;
+}
+
+/* ======== REFERRAL SECTION ======== */
+#refLink {
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+button.bg-blue-600 {
+  background-color: #2563eb;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button.bg-blue-600:hover {
+  background-color: #1d4ed8;
+}
+
+/* ======== SCROLLBAR STYLING ======== */
+main::-webkit-scrollbar {
+  width: 8px;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 10px;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+.logout-link {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #2563eb; /* blue */
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  background-color: rgba(255,255,255,0.9);
+}
+
+.logout-link:hover {
+  background-color: #e0e7ff;
+  text-decoration: underline;
+}

@@ -253,6 +253,8 @@
     <a href="index.html">Home</a>
     <a href="categories.html">Categories</a>
     <a href="contact.html">Contact</a>
+   <a href="affiliate_login.html">Affiliate Login</a>
+
   </nav>
   <div class="search-container">
     <span class="search-icon" onclick="toggleSearch()">🔍</span>
@@ -301,8 +303,8 @@
 
 <div class="slider">
   <div class="slides">
-    <div class="slide"><img src="https://res.cloudinary.com/dfttdawqg/image/upload/v1760072226/earningHandle/ygddw9ka0dztlxsjyeje.webp" alt="Offer 1"></div>
-    <div class="slide"><img src="https://res.cloudinary.com/dfttdawqg/image/upload/v1760072133/earningHandle/mwknjm4ykn1bxd3p3w5q.webp" alt="Offer 2"></div>
+    <div class="slide"><img src="https://res.cloudinary.com/dfttdawqg/image/upload/v1761732974/earningHandle/jji31dhh9f1alanefbz3.webp" alt="Offer 1"></div>
+    <div class="slide"><img src="https://res.cloudinary.com/dfttdawqg/image/upload/v1761810433/earningHandle/ml6vsftkkz2fl3i3m97p.webp" alt="Offer 2"></div>
     <div class="slide"><img src="https://res.cloudinary.com/dfttdawqg/image/upload/v1760072275/earningHandle/h6apay1dvjzyqttyv4dd.webp" alt="Offer 3"></div>
   </div>
   <button class="btn prev">&#10094;</button>
@@ -310,12 +312,23 @@
   <div class="dots"></div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="modal-close" id="modal-close">&times;</span>
+    <h3 id="modal-title"></h3>
+    <img id="modal-img" src="" style="width:100%;height:200px;object-fit:cover">
+    <p id="modal-desc"></p>
+  </div>
+</div>
+
 <section class="hero">
   <div>
     <h1>Top deals on electronics, fashion & more</h1>
     <p>Explore curated affiliate products with live prices and easy purchase links — earn more with every click.</p>
     <div style="margin-top:15px;">
-      <a href="vender_panel.html" class="btn-primary">Shop All Products</a>
+      <a href="login.html" class="btn-primary">Shop All Products</a>
       <a href="categories.html" class="btn-ghost">Browse Categories</a>
     </div>
   </div>
@@ -713,7 +726,29 @@ fetch("http://localhost:5000/api/products?approved=true")
       </div>
     `).join("");
   });
+function loadAffiliateStore() {
+    const container = document.getElementById('affiliateStoreContainer');
+    if (!container) return;
 
+    const products = JSON.parse(localStorage.getItem('vendorProducts')) || [];
+    container.innerHTML = '';
+
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'affiliate-card';
+        card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" width="150">
+            <h3>${product.name}</h3>
+            <p>Price: ₹${product.price}</p>
+            <p>${product.description}</p>
+            <button onclick="addToCart('${product.id}')">Add to Cart</button>
+            <button onclick="shareProduct('${product.id}')">Share</button>
+        `;
+        container.appendChild(card);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', loadAffiliateStore);
 </script>
 
 </body>

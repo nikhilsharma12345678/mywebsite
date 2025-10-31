@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate Dashboard</title>
+  <link rel="stylesheet" href="affiliate_dashboard.css">
+</head>
+<body class="flex h-screen bg-gray-100 font-sans">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-blue-900 text-white flex flex-col">
+    <div class="p-6 text-center border-b border-blue-700">
+      <h1 class="text-2xl font-bold">Affiliate Panel</h1>
+      <p class="text-sm text-blue-200 mt-1">Welcome, Nikhil</p>
+    </div>
+
+    <nav class="flex-1 p-4 space-y-2">
+      <a href="affiliate_dashboard.html" class="flex items-center gap-2 p-3 rounded-lg bg-blue-800 hover:bg-blue-700 transition">
+        <i class="fas fa-chart-line"></i> Dashboard
+      </a>
+      <a href="affiliate_links.html" class="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-700 transition">
+        <i class="fas fa-link"></i> Affiliate Links
+      </a>
+      <a href="affiliatte_Earnings.html" class="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-700 transition">
+        <i class="fas fa-wallet"></i> Earnings
+      </a>
+      <a href="#" class="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-700 transition">
+        <i class="fas fa-users"></i> Referrals
+      </a>
+      <a href="#" class="flex items-center gap-2 p-3 rounded-lg hover:bg-blue-700 transition">
+        <i class="fas fa-cog"></i> Settings
+      </a>
+    </nav>
+
+    
+  </aside>
+  <a href="index.html" class="logout-link">Logout</a>
+
+
+  <!-- Main Content -->
+  <main class="flex-1 p-8 overflow-y-auto">
+    <h2 class="text-3xl font-bold mb-6 text-blue-900">Affiliate Dashboard Overview</h2>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-gray-500 font-semibold">Total Clicks</h3>
+        <p class="text-3xl font-bold mt-2 text-blue-600">12,450</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-gray-500 font-semibold">Conversions</h3>
+        <p class="text-3xl font-bold mt-2 text-green-600">1,289</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-lg">
+        <h3 class="text-gray-500 font-semibold">Total Earnings</h3>
+        <p class="text-3xl font-bold mt-2 text-yellow-600">₹48,320</p>
+      </div>
+    </div>
+
+    <!-- Affiliate Links Table -->
+    <div class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+      <h3 class="text-xl font-semibold mb-4 text-blue-800">Your Affiliate Links</h3>
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b">
+            <th class="py-3 px-2">Product</th>
+            <th class="py-3 px-2">Clicks</th>
+            <th class="py-3 px-2">Earnings</th>
+            <th class="py-3 px-2">Copy Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="py-3 px-2">Wireless Earbuds</td>
+            <td class="py-3 px-2">342</td>
+            <td class="py-3 px-2 text-green-600">₹540</td>
+            <td class="py-3 px-2"><button class="text-blue-600 font-semibold" onclick="copyLink('earbuds')">Copy</button></td>
+          </tr>
+          <tr class="border-b hover:bg-gray-50">
+            <td class="py-3 px-2">Smartwatch</td>
+            <td class="py-3 px-2">210</td>
+            <td class="py-3 px-2 text-green-600">₹390</td>
+            <td class="py-3 px-2"><button class="text-blue-600 font-semibold" onclick="copyLink('smartwatch')">Copy</button></td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="py-3 px-2">Bluetooth Speaker</td>
+            <td class="py-3 px-2">145</td>
+            <td class="py-3 px-2 text-green-600">₹250</td>
+            <td class="py-3 px-2"><button class="text-blue-600 font-semibold" onclick="copyLink('speaker')">Copy</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Referral Section -->
+    <div class="bg-white p-6 rounded-2xl shadow-lg">
+      <h3 class="text-xl font-semibold mb-3 text-blue-800">Invite & Earn</h3>
+      <p class="text-gray-600 mb-4">Share your unique referral link with friends and earn commissions when they sign up.</p>
+      <div class="flex items-center gap-2">
+        <input id="refLink" readonly value="https://yourwebsite.com/ref/nikhil123" class="flex-1 p-2 border rounded-lg">
+        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onclick="copyRef()">Copy</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function copyLink(item) {
+      navigator.clipboard.writeText(`https://yourwebsite.com/product/${item}?ref=nikhil123`);
+      alert("Affiliate link copied!");
+    }
+    function copyRef() {
+      const ref = document.getElementById("refLink").value;
+      navigator.clipboard.writeText(ref);
+      alert("Referral link copied!");
+    }
+   
+   
+   
+  </script>
+</body>
+</html>

@@ -9,39 +9,53 @@
 </head>
 <body>
 
-  <!-- Navbar -->
+ <!-- ===== Navbar ===== -->
   <nav class="navbar">
-    <div class="logo">🌱 GrowthNest</div>
+    <div class="logo">
+     
+      🌱 GrowthNest
+
+    </div>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
+      <li><a href="blog.html">Blogs</a></li>
       <li><a href="artical.html">Article</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="affliate.html">Affiliate Panel</a></li>
-      <li><a href="vender_panel.html">Vendor Panel</a></li>
-      <li><a href="admin_panel.html">Admin Panel</a></li>
-    </ul>
-
-    <div class="hamburger" id="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
+      <li><a href="contact.html">Contact Us</a></li>
+      <div class="dropdown">
+    <button class="login-btn">Login/SignUp</button>
+    
+    <div class="dropdown-content">
+        <a href="login.html">Vendor Panel</a>
+        <a href="affliate.html">Affiliate Store</a>
+        <a href="admin_panel.html">Admin Panel</a>
+        <a href="index.html">Back</a>
     </div>
+</div>
+    </ul>
   </nav>
 
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar" >
+  <!-- ===== Hamburger Button ===== -->
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- ===== Sidebar ===== -->
+  <div class="sidebar" id="sidebar">
     <ul>
-      <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="artical.html">Article</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="blog.html">Blogs</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
       <li><a href="affliate.html">Affiliate Panel</a></li>
-      <li><a href="vender_panel.html">Login|signup</a></li>
-      <li><a href="admin_panel.html">Admin Panel</a></li>
+      <li><a href="login.html">Vendor Panel</a></li>
+            <li><a href="admin_panel.html">AdminPanel</a></li>
+     
+      <li><a href="index.html">Back</a></li>
     </ul>
   </div>
-</header>
 
 
 
@@ -73,7 +87,7 @@
   </div>
 
   <div class="media">
-    <img src="https://s895d3qg-5500.inc1.devtunnels.ms/" alt="GrowthNEST Team" />
+    <img src="d72a41ff-736c-47fe-a328-7558bdc07eef.jpg" alt="GrowthNEST Team" />
   </div>
 </section>
 
@@ -329,6 +343,7 @@
 </footer>
 
 <script>
+      // ===== Toggle Sidebar =====
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
 
@@ -337,7 +352,23 @@
       sidebar.classList.toggle("active");
     });
 
+    /* This function is called when the Login/SignUp button is clicked. 
+It finds the element with the ID "myDropdown" and adds or removes 
+the CSS class "show," which toggles its visibility.
+*/
+function toggleDropdown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
 
+// 💡 Bonus: Close the dropdown if the user clicks anywhere outside of it.
+window.onclick = function(event) {
+  if (!event.target.matches('.login-btn')) { // If the click is NOT on the button
+    var dropdown = document.getElementById("myDropdown");
+    if (dropdown.classList.contains('show')) {
+      dropdown.classList.remove('show');
+    }
+  }
+}
     // === NAVBAR SEARCH LOGIC ===
     function toggleSearch() {
         // Simple focus/display logic from your original code

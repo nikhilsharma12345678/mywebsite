@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Affiliate Links</title>
+  <link rel="stylesheet" href="affiliate_links.css" />
+</head>
+<body>
+    <style>/* ---------- Affiliate Links Section Styles ---------- */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb;
+  padding: 40px;
+  margin: 0;
+}
+
+.affiliate-container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  max-width: 900px;
+  margin: auto;
+}
+
+.affiliate-container h1 {
+  font-size: 1.8rem;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.affiliate-container .subtitle {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* Table */
+.links-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.links-table th, .links-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 8px;
+  text-align: left;
+}
+
+.links-table th {
+  background-color: #f3f4f6;
+  color: #374151;
+  font-weight: 600;
+}
+
+.links-table td input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px;
+  background-color: #f9fafb;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #1e40af;
+}
+
+.green {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* Referral Box */
+.referral-box {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.referral-box h3 {
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.ref-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ref-input input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}
+
+.ref-input button {
+  background-color: #059669;
+}
+
+.ref-input button:hover {
+  background-color: #047857;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  .links-table th, .links-table td {
+    font-size: 0.85rem;
+  }
+  .affiliate-container {
+    padding: 20px;
+  }
+}
+</style>
+
+  <div class="affiliate-container">
+    <h1><i class="fas fa-link"></i> Affiliate Links</h1>
+    <p class="subtitle">Manage and share your affiliate product links easily.</p>
+
+    <!-- Links Table -->
+    <table class="links-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Clicks</th>
+          <th>Earnings</th>
+          <th>Affiliate Link</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Wireless Earbuds</td>
+          <td>342</td>
+          <td class="green">₹540</td>
+          <td><input id="link1" readonly value="https://example.com/product/earbuds?ref=nikhil123"></td>
+          <td><button onclick="copyLink('link1')">Copy</button></td>
+        </tr>
+        <tr>
+          <td>Smartwatch</td>
+          <td>210</td>
+          <td class="green">₹390</td>
+          <td><input id="link2" readonly value="https://example.com/product/smartwatch?ref=nikhil123"></td>
+          <td><button onclick="copyLink('link2')">Copy</button></td>
+        </tr>
+        <tr>
+          <td>Bluetooth Speaker</td>
+          <td>145</td>
+          <td class="green">₹250</td>
+          <td><input id="link3" readonly value="https://example.com/product/speaker?ref=nikhil123"></td>
+          <td><button onclick="copyLink('link3')">Copy</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Referral Box -->
+    <div class="referral-box">
+      <h3>Your Referral Link</h3>
+      <div class="ref-input">
+        <input id="refLink" readonly value="https://example.com/ref/nikhil123">
+        <button onclick="copyRef()">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="affiliate_links.js"></script>
+</body>
+</html>

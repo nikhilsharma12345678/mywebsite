@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendor Dashboard</title>
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="dashboard_styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/645b736b7c.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
+  <style>
+    /* Graph Container Styling */
+    .graph-box {
+      background-color: #fff;
+      margin: 30px;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: calc(100% - 60px);
+    }
+
+    .graph-box h2 {
+      color: var(--amazon-blue);
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    #salesChart {
+      max-height: 400px;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* Logout button style */
+    .logout-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      margin-left: 20px;
+    }
+
+    .logout-btn:hover {
+      background: #dc2626;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">Vendor Panel</div>
+      <nav>
+        <ul>
+           <li class="active"><a href="vendor_dashboard.html">Dashboard</a></li>
+                    <li><a href="Product.uploding.html">Add Product</a></li>
+                    <li><a href="inventory_management.html">Manage Inventory</a></li>
+                    <li><a href="orders_management.html">Orders</a></li>
+                    <li><a href="#">Reports</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="header">
+        <h1>Vendor Dashboard Overview</h1>
+        <div class="user-info">
+          Welcome, <strong>Nikhil</strong> <span class="profile-icon">VN</span>
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </header>
+
+      <div class="dashboard-widgets">
+        <div class="widget inventory-summary">
+          <h3>📊 Inventory Summary</h3>
+          <p class="data-point">Total Live SKUs: <span class="highlight-number">1</span></p>
+          <p class="data-point low-stock">Low Stock (Below 20 units): <span class="highlight-number">12</span></p>
+          <a href="inventory_management.html" class="widget-link">Manage Inventory ➡️</a>
+        </div>
+
+        <div class="widget order-summary">
+          <h3>📦 Order Status</h3>
+          <p class="data-point">Pending Orders (Unshipped): <span class="highlight-number low-stock">7</span></p>
+          <p class="data-point processing-order">Ready to Ship: <span class="highlight-number">1</span></p>
+          <a href="orders_management.html" class="widget-link">View All Orders ➡️</a>
+        </div>
+
+        <div class="widget sales-metrics">
+          <h3>💰 Sales Performance</h3>
+          <p class="data-point">Revenue (Today): <span class="highlight-number">₹ 1,25,400</span></p>
+          <p class="data-point delivered-order">Units Sold (Yesterday): <span class="highlight-number">320</span></p>
+          <a href="#" class="widget-link">View Reports ➡️</a>
+        </div>
+      </div>
+
+      <!-- Chart Section -->
+      <div class="graph-box">
+        <h2>Sales Trend: Last 7 Days</h2>
+        <canvas id="salesChart"></canvas>
+      </div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // 🔒 Check login status
+    if (localStorage.getItem("isVendorLoggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    // 🚪 Logout function
+    function logout() {
+      localStorage.removeItem("isVendorLoggedIn");
+      window.location.href = "index.html";
+    }
+
+    // 📈 Chart.js Graph
+    document.addEventListener("DOMContentLoaded", initializeChart);
+
+    function initializeChart() {
+      const ctx = document.getElementById("salesChart").getContext("2d");
+
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+          datasets: [
+            {
+              label: "Daily Revenue (₹)",
+              data: [12000, 19500, 30000, 18000, 25000, 22000, 35000],
+              backgroundColor: "rgba(255, 153, 0, 0.5)",
+              borderColor: "rgba(255, 153, 0, 1)",
+              borderWidth: 2,
+              tension: 0.3,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: "Revenue (₹)" },
+            },
+          },
+        },
+      });
+    }
+  </script>
+</body>
+</html>

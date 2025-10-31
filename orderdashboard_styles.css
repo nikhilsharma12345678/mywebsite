@@ -1,0 +1,304 @@
+/* ----------------------------------- */
+/* Vendor Dashboard Styles - Amazon Style */
+/* ----------------------------------- */
+
+/* Root Colors */
+:root {
+    --amazon-blue: #131921;
+    --amazon-green: #0f5132;
+    --amazon-light: #f3f3f3;
+    --button-yellow: #ffd814;
+    --button-border: #fcd200;
+    --font-family: 'Amazon Ember', sans-serif;
+}
+
+/* Reset and Body */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: #f0f2f5;
+    color: #111;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    padding: 20px 0;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--amazon-blue);
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav ul li {
+    margin: 10px 0;
+}
+
+.sidebar nav ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.sidebar nav ul li.active a,
+.sidebar nav ul li a:hover {
+    background-color: var(--button-yellow);
+    color: var(--amazon-blue);
+    font-weight: 600;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px 30px;
+    background-color: #f0f2f5;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: var(--amazon-blue);
+}
+
+.user-info {
+    font-size: 14px;
+    color: #555;
+}
+
+.user-info .profile-icon {
+    background-color: var(--amazon-blue);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 50%;
+    margin-left: 10px;
+    font-weight: 700;
+}
+
+/* Orders Table Container */
+.orders-table-container {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+/* Table Header */
+.orders-table-container h2 {
+    color: var(--amazon-blue);
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+.customer-orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+}
+
+.customer-orders-table th,
+.customer-orders-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.customer-orders-table thead tr {
+    background-color: var(--amazon-light);
+    font-weight: 700;
+    color: var(--amazon-blue);
+}
+
+.customer-orders-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.customer-orders-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.status-shipped {
+    background-color: #cfe2ff;
+    color: #0d6efd;
+    border: 1px solid #b6d4fe;
+}
+
+.status-delivered {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+/* Buttons */
+.status-btn {
+    padding: 7px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.ship-btn {
+    background-color: var(--button-yellow);
+    border-color: var(--button-border);
+    color: var(--amazon-blue);
+}
+
+.ship-btn:hover {
+    background-color: #f7ca00;
+}
+
+.track-btn {
+    background-color: #eee;
+    color: #333;
+}
+
+.track-btn:hover {
+    background-color: #ddd;
+}
+
+.delivered-btn {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.page-btn {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.page-btn:hover {
+    background-color: #f3f3f3;
+}
+
+/* --------------------------- */
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .sidebar nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .sidebar nav li {
+        flex: 1;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .orders-table-container {
+        padding: 15px;
+    }
+
+    .customer-orders-table {
+        min-width: 600px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .user-info {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .customer-orders-table {
+        min-width: 500px;
+        font-size: 12px;
+    }
+
+    .status-btn {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+
+    .orders-table-container h2 {
+        font-size: 18px;
+    }
+}

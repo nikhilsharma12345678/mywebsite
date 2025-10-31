@@ -1,187 +1,74 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Products Dashboard</title>
+  <title>Vendor Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     body {
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(to right, #65d2b7, #57b6df);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      margin: 0;
-      padding: 20px;
+      background-image: url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      font-family: 'Inter', sans-serif;
     }
-    .form-box {
-      background: #fff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 500px;
-      margin-top: 20px;
-    }
-    h2 {
-      text-align: center;
-      color: #2563eb;
-      margin-bottom: 20px;
-    }
-    input, select, textarea {
-      width: 100%;
-      margin: 8px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-    button {
-      background: linear-gradient(90deg, #4f46e5, #2563eb);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 600;
-      width: 100%;
-      margin-top: 12px;
-    }
-    button:hover {
-      background: linear-gradient(90deg, #2563eb, #4f46e5);
-    }
-    
   </style>
 </head>
-<body>
+<body class="flex items-center justify-center h-screen bg-gray-900 bg-opacity-60">
 
-  
-  <div class="form-box">
-    <h2>🛍️ Add New Product</h2>
-    <form id="productForm">
-      <input type="text" id="name" placeholder="Enter Product Name" required />
-      <input type="number" id="mrp" placeholder="Enter MRP" required />
-      <input type="number" id="price" placeholder="Enter Selling Price" required />
+  <!-- Login Box -->
+  <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">Vendor Login</h1>
+    
+    <label class="block mb-2 font-semibold">Email</label>
+    <input id="email" type="email" placeholder="Enter your email" class="w-full p-2 border rounded-lg mb-4 focus:ring focus:ring-blue-300">
 
-      <!-- Category dropdown -->
-      <label>Category:</label>
-      <select id="category" required>
-        <option value="">Select Category</option>
-        <option value="fashion">Fashion</option>
-        <option value="electronics">Electronics</option>
-        <option value="beauty">Beauty</option>
-        <option value="home">Home & Kitchen</option>
-        <option value="sports">Sports</option>
-      </select>
+    <label class="block mb-2 font-semibold">Password</label>
+    <input id="password" type="password" placeholder="Enter your password" class="w-full p-2 border rounded-lg mb-4 focus:ring focus:ring-blue-300">
 
-      <!-- Sub-Category dropdown -->
-      <label>Sub-Category:</label>
-      <select id="subcategory" required>
-        <option value="">Select Sub-Category</option>
-      </select>
+    <button onclick="login()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold mb-4">Login</button>
 
-      <input type="number" id="discount" placeholder="Discount (%)" required />
-      <textarea id="description" placeholder="Enter Product Description" rows="3" required></textarea>
-      <textarea id="info" placeholder="Enter Additional Information" rows="3" required></textarea>
+    <p id="errorMsg" class="text-red-500 text-sm mt-1 text-center hidden">Invalid email or password</p>
 
-      <label>Rating (1–5):</label>
-      <select id="rating" required>
-        <option value="">Select Rating</option>
-        <option value="1">⭐ 1</option>
-        <option value="2">⭐ 2</option>
-        <option value="3">⭐ 3</option>
-        <option value="4">⭐ 4</option>
-        <option value="5">⭐ 5</option>
-      </select>
+    <!-- OR Divider -->
+    <div class="flex items-center text-center my-4">
+      <div class="flex-grow border-t border-gray-300"></div>
+      <span class="px-2 text-gray-500">or</span>
+      <div class="flex-grow border-t border-gray-300"></div>
+    </div>
 
-      <label>Upload Images:</label>
-      <input type="file" id="image1" accept="image/*" required />
-      <input type="file" id="image2" accept="image/*" />
-      <input type="file" id="image3" accept="image/*" />
+    <!-- Google Login -->
+    <button onclick="googleLogin()" class="w-full flex items-center justify-center gap-2 border py-2 rounded-lg font-semibold hover:bg-gray-100 mb-4">
+      <i class="fab fa-google text-red-500"></i> Login with Google
+    </button>
 
-      <button type="submit">Add Product</button>
-     
-      <a href="products.html">➡ Go to Product List</a>
-      
-    </form>
-   
+    <!-- Create Account -->
+    <a href="vendor_register.html" class="w-full block text-center bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold">Create Account</a>
+  </div>
 
   <script>
-   
-    const apiUrl = "http://localhost:3000/api/products";
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('errorMsg');
 
-    // 🔹 Category → Subcategory mapping
-    const subCategories = {
-      fashion: ["Men's Clothing", "Women's Clothing", "Bags", "Footwear", "Accessories"],
-      electronics: ["Mobiles", "Laptops", "Cameras", "Headphones", "Smart Watches"],
-      beauty: ["Skincare", "Haircare", "Makeup", "Fragrance"],
-      home: ["Kitchen", "Furniture", "Decor", "Appliances"],
-      sports: ["Cricket", "Football", "Gym", "Cycling"]
-    };
+      // Dummy credentials
+      const validEmail = "vendor@gmail.com";
+      const validPassword = "12345";
 
-    document.getElementById("category").addEventListener("change", (e) => {
-      const category = e.target.value;
-      const subSelect = document.getElementById("subcategory");
-      subSelect.innerHTML = '<option value="">Select Sub-Category</option>';
-      if (subCategories[category]) {
-        subCategories[category].forEach(sub => {
-          const opt = document.createElement("option");
-          opt.value = sub;
-          opt.textContent = sub;
-          subSelect.appendChild(opt);
-        });
+      if (email === validEmail && password === validPassword) {
+        localStorage.setItem("isVendorLoggedIn", "true");
+        window.location.href = "vendor_dashboard.html";
+      } else {
+        errorMsg.classList.remove("hidden");
       }
-    });
-
-    function toBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-      });
     }
 
-    document.getElementById("productForm").addEventListener("submit", async e => {
-      e.preventDefault();
-
-      const imageFiles = [
-        document.getElementById("image1").files[0],
-        document.getElementById("image2").files[0],
-        document.getElementById("image3").files[0]
-      ];
-
-      const imagesBase64 = await Promise.all(
-        imageFiles.filter(f => f).map(f => toBase64(f))
-      );
-
-      const product = {
-        name: name.value.trim(),
-        mrp: parseFloat(mrp.value),
-        price: parseFloat(price.value),
-        discount: parseFloat(discount.value),
-        rating: parseInt(rating.value),
-        description: description.value,
-        info: info.value,
-        category: category.value,
-        subcategory: subcategory.value,
-        images: imagesBase64
-      };
-
-      await fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product)
-      });
-
-      e.target.reset();
-      const msg = document.getElementById("successMsg");
-      msg.style.display = "block";
-      setTimeout(() => msg.style.display = "none", 2000);
-    });
+    function googleLogin() {
+      alert("Google login feature coming soon!");
+    }
   </script>
+
 </body>
-</html> -->
+</html>

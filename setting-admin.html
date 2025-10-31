@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>/* General body & font */
+/* ---------- General ---------- */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb; /* lighter background */
+  color: #111827; /* Tailwind gray-900 */
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ---------- Main container ---------- */
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-y: auto;
+}
+
+/* ---------- Section / Cards ---------- */
+section {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+  transition: all 0.2s ease-in-out;
+}
+
+section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* ---------- Headings ---------- */
+h1, h2 {
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Inputs ---------- */
+input[type="text"], 
+input[type="number"], 
+select, 
+input[type="file"], 
+textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+
+/* ---------- Buttons ---------- */
+button {
+  display: inline-block;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+button:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- Checkboxes & Toggles ---------- */
+input[type="checkbox"].form-checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: #3b82f6;
+  cursor: pointer;
+}
+
+/* ---------- Grid / Layout ---------- */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---------- Sidebar Links ---------- */
+aside a {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+aside a:hover {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+aside a.active {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 600;
+}
+
+/* ---------- Responsive Adjustments ---------- */
+@media (max-width: 640px) {
+  main {
+    padding: 1rem;
+  }
+
+  section {
+    padding: 1.25rem;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* ---------- Scrollbar Styling ---------- */
+main::-webkit-scrollbar {
+  width: 8px;
+}
+
+main::-webkit-scrollbar-thumb {
+  background-color: rgba(59, 130, 246, 0.5);
+  border-radius: 4px;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(59, 130, 246, 0.8);
+}
+
+/* ---------- Card Variants ---------- */
+.card-info {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+}
+
+.card-warning {
+  border-left: 4px solid #facc15;
+  padding-left: 1rem;
+}
+
+.card-danger {
+  border-left: 4px solid #ef4444;
+  padding-left: 1rem;
+}
+
+</style>
+    <main class="flex-1 p-8 space-y-8">
+
+    <!-- Settings Tab -->
+    <section id="settings-tab" class="hidden">
+
+      <h1 class="text-2xl font-bold mb-6">Settings</h1>
+
+      <!-- General Settings -->
+      <section class="bg-white p-6 rounded shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">General Settings</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Site Name</label>
+            <input type="text" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="Enter site name">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Logo Upload</label>
+            <input type="file" class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Favicon Upload</label>
+            <input type="file" class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Timezone</label>
+            <select class="w-full border border-gray-300 rounded px-3 py-2">
+              <option>UTC</option>
+              <option>GMT</option>
+              <option>IST</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- User & Role Management -->
+      <section class="bg-white p-6 rounded shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">User & Role Management</h2>
+        <div class="space-y-3">
+          <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Manage Admins</button>
+          <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Roles & Permissions</button>
+          <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Password Policy</button>
+        </div>
+      </section>
+
+      <!-- Security Settings -->
+      <section class="bg-white p-6 rounded shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">Security Settings</h2>
+        <div class="space-y-3">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox">
+            <span>Enable Two-Factor Authentication (2FA)</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox">
+            <span>IP Whitelist / Blacklist</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox">
+            <span>Auto Logout on Idle</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Payment & Finance -->
+      <section class="bg-white p-6 rounded shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">Payment & Finance</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Currency</label>
+            <input type="text" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="USD">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Payment Gateway</label>
+            <select class="w-full border border-gray-300 rounded px-3 py-2">
+              <option>Stripe</option>
+              <option>PayPal</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Commission (%)</label>
+            <input type="number" class="w-full border border-gray-300 rounded px-3 py-2" placeholder="10">
+          </div>
+        </div>
+      </section>
+
+      <!-- Notifications -->
+      <section class="bg-white p-6 rounded shadow mb-6">
+        <h2 class="text-xl font-semibold mb-4">Notifications</h2>
+        <div class="space-y-3">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox">
+            <span>Email Notifications</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox">
+            <span>SMS / Push Notifications</span>
+          </label>
+        </div>
+      </section>
+<section class="card">
+  <h2>Backup & Maintenance</h2>
+  <div class="button-group">
+    <button id="backup-btn">Database Backup</button>
+    <button id="maintenance-btn">Enable Maintenance Mode</button>
+  </div>
+</section>
+
+<!-- Activity Logs -->
+<section class="card">
+  <h2>Activity Logs</h2>
+  <p>Admin activity logs and system error logs can be accessed here.</p>
+  <button id="logs-btn">View Logs</button>
+</section>
+
+
+  </main>
+</div>
+
+<script>
+  // Toggle Settings tab visibility
+  const settingsBtn = document.getElementById('settings-btn');
+  const settingsTab = document.getElementById('settings-tab');
+
+  settingsBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    settingsTab.classList.toggle('hidden');
+  });
+
+  // Click handlers
+  document.getElementById('backup-btn').addEventListener('click', () => {
+    alert('Database backup started!');
+    // Here you can call your backend API to do real backup
+  });
+
+  document.getElementById('maintenance-btn').addEventListener('click', () => {
+    alert('Maintenance mode enabled!');
+    // Call backend API to enable maintenance mode
+  });
+
+  document.getElementById('logs-btn').addEventListener('click', () => {
+    alert('Opening activity logs...');
+    // Redirect or fetch logs from server
+  });
+
+
+//   // Get settings
+// fetch('http://localhost:5000/api/settings')
+//   .then(res => res.json())
+//   .then(data => console.log(data));
+
+// // Save settings
+// const formData = {
+//   siteName: 'My Site',
+//   timezone: 'IST',
+//   currency: 'USD',
+//   paymentGateway: 'Stripe',
+//   commission: 10,
+//   notifications: { email: true, sms: false },
+//   security: { twoFA: true, ipWhitelist: false, autoLogout: true }
+// };
+
+// fetch('http://localhost:5000/api/settings', {
+//   method: 'POST',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify(formData)
+// })
+// .then(res => res.json())
+// .then(data => console.log('Saved', data));
+// Check if admin is logged in
+ 
+  // अगर login नहीं हुआ है → login page पर redirect
+  if(localStorage.getItem("isAdminLoggedIn") !== "true") {
+    window.location.href = "admin-login.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("isAdminLoggedIn"); // login status remove
+    window.location.href = "admin-login.html";   // login page वापस
+  }
+</script>
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 2rem;
+  color: #2563eb;
+}
+
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-info h2 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+}
+
+.product-info p {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0 0 1rem;
+}
+
+.product-info .price {
+  font-weight: 700;
+  color: #2563eb;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.product-buttons button {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.buy-now {
+  background: #16a34a;
+  color: #fff;
+}
+
+.buy-now:hover {
+  background: #15803d;
+}
+
+.share {
+  background: #2563eb;
+  color: #fff;
+}
+
+.share:hover {
+  background: #1e40af;
+}
+
+@media (max-width: 500px) {
+  .product-card img {
+    height: 150px;
+  }
+  .product-buttons {
+    flex-direction: column;
+  }
+}
+.product-card {
+    /* Base style for the card */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    /* Hover effect */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px; /* Fixed height for consistent look */
+    object-fit: cover; /* Ensures image covers the space without distortion */
+}
+
+.product-details {
+    padding: 1rem;
+}
+
+.product-name {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+    color: #1f2937; /* text-gray-800 */
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Keep product names on one line */
+}
+
+.product-desc {
+    font-size: 0.875rem; /* text-sm */
+    color: #6b7280; /* text-gray-500 */
+    height: 40px; /* Limit description lines */
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.price-section {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+
+.price {
+    font-size: 1.5rem; /* text-2xl */
+    font-weight: 800; /* font-extrabold */
+    color: #10b981; /* Green color for selling price */
+    margin-right: 0.75rem;
+}
+
+.mrp {
+    font-size: 0.875rem; /* text-sm */
+    color: #9ca3af; /* text-gray-400 */
+    text-decoration: line-through; /* Strikethrough for MRP */
+}
+
+/* --- Action Buttons --- */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 1rem 1rem 1rem;
+    border-top: 1px solid #f3f4f6; /* Subtle separator */
+}
+
+.action-btn {
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Buy Now Button - Primary Action */
+.btn-buy-now {
+    flex-grow: 2; /* Takes up most of the space */
+    background-color: #3b82f6; /* Blue */
+    color: white;
+}
+.btn-buy-now:hover {
+    background-color: #2563eb;
+}
+
+/* Cart Button */
+.btn-cart {
+    flex-grow: 1;
+    background-color: #f3f4f6; /* Light gray */
+    color: #1f2937;
+}
+.btn-cart:hover {
+    background-color: #e5e7eb;
+}
+
+/* Share/Delete Buttons - Icon-only */
+.btn-icon {
+    flex-grow: 0;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 50%; /* Circular buttons */
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+.btn-icon:hover {
+    background-color: #e5e7eb;
+}
+
+.btn-delete {
+    color: #ef4444; /* Red icon for delete */
+}
+
+.btn-delete:hover {
+    background-color: #fee2e2; /* Light red hover */
+}

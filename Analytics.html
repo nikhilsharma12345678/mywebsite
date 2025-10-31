@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <main class="p-6 max-w-6xl mx-auto">
+    <h1 class="text-3xl font-bold mb-6">Analytics Dashboard</h1>
+
+    <div class="button-container">
+  <a href="admin_panel.html" class="btn">Back to Admin</a>
+</div>
+
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h2 class="text-gray-500">Total Earnings</h2>
+        <p class="text-2xl font-bold mt-2">100</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h2 class="text-gray-500">New Users</h2>
+        <p class="text-2xl font-bold mt-2">1</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h2 class="text-gray-500">Active Sessions</h2>
+        <p class="text-2xl font-bold mt-2">1</p>
+      </div>
+    </div>
+
+    <!-- Earnings Chart -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">Earnings This Month</h2>
+      <canvas id="earningsChart" height="100"></canvas>
+    </section>
+  </main>
+
+  <script>
+    const ctx = document.getElementById('earningsChart').getContext('2d');
+    const earningsChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['1 Oct', '5 Oct', '10 Oct', '15 Oct', '20 Oct', '25 Oct', '30 Oct'],
+        datasets: [{
+          label: 'Earnings ($)',
+          data: [200, 300, 400, 500, 600, 700, 1800,2000,2500],
+          backgroundColor: 'rgba(59, 130, 246, 0.2)',
+          borderColor: 'rgba(59, 130, 246, 1)',
+          borderWidth: 2,
+          tension: 0.3,
+          fill: true,
+          pointRadius: 5,
+          pointBackgroundColor: 'rgba(59, 130, 246, 1)'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            mode: 'index',
+            intersect: false
+          }
+        },
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { color: '#e5e7eb' }, beginAtZero: true }
+        }
+      }
+    });
+  </script>
+  <style>/* Container to align button to the right */
+/* Button positioned at top-right */
+.button-container {
+  position: fixed; /* fixes it relative to viewport */
+  top: 20px;       /* distance from top */
+  right: 20px;     /* distance from right */
+  z-index: 1000;   /* ensures it stays on top */
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  background-color: #3b82f6; /* blue color */
+  color: white;
+  font-weight: 600;
+  padding: 12px 30px;
+  font-size: 0.95rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2563eb; /* darker blue on hover */
+  transform: translateY(-2px); /* subtle lift effect */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+</style>
+<script>// Check if admin is logged in
+ 
+  // अगर login नहीं हुआ है → login page पर redirect
+  if(localStorage.getItem("isAdminLoggedIn") !== "true") {
+    window.location.href = "admin-login.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("isAdminLoggedIn"); // login status remove
+    window.location.href = "admin-login.html";   // login page वापस
+  }
+</script>
+
+  
+</script>
+</body>
+</html>

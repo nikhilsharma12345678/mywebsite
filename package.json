@@ -1,7 +1,7 @@
 {
   "name": "api-login",
   "version": "1.0.0",
-  "description": "",
+  "description": "\"# growthnest-frontend-website\" \r \"# growthnest-backend\" \r \"# growthnest-frontend\" \r \"# mywebsite\"",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,9 +17,19 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "exxpress": "^1.0.0",
+    "framer-motion": "^12.23.24",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.2",
+    "recharts": "^3.3.0",
     "socket.io": "^4.8.1",
     "uuid": "^13.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikhilsharma12345678/mywebsite.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nikhilsharma12345678/mywebsite/issues"
+  },
+  "homepage": "https://github.com/nikhilsharma12345678/mywebsite#readme"
 }

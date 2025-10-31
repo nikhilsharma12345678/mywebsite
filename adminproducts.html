@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products Page</title>
+  <link rel="stylesheet" href="adminproducts.css">
+</head>
+<body>
+
+<h1>Our Products</h1>
+ <div class="flex flex-1 overflow-hidden">
+
+      <!-- Sidebar -->
+      <aside class="bg-white w-64 hidden md:block shadow-lg p-4">
+        <ul class="space-y-2">
+          <li><button class="tab-btn active w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50" data-tab="dashboard">🏠 Dashboard</button></li>
+           <a href="adminproducts.html" id="settings-btn" class="block py-2 px-3 rounded hover:bg-gray-200 font-medium">📦 Products</a>
+          <li><button class="tab-btn w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50" data-tab="vendors">🏪 Vendors</button></li>
+          <li><button class="tab-btn w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50" data-tab="Affiliate">📈 Affiliate</button></li>
+          <li><button class="tab-btn w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50" data-tab="users">👥 Users</button></li>
+               <a href="Analytics.html" id="settings-btn" class="block py-2 px-3 rounded hover:bg-gray-200 font-medium">📊 Analytics</a>
+         <a href="setting-admin.html" id="settings-btn" class="block py-2 px-3 rounded hover:bg-gray-200 font-medium">Settings</a>
+    
+        </ul>
+      </aside>
+
+      <!-- Mobile Sidebar -->
+      <div class="md:hidden bg-white shadow p-3 flex justify-between items-center">
+        <h2 class="font-semibold text-lg">Menu</h2>
+        <button id="menu-toggle" class="bg-blue-100 px-3 py-2 rounded-lg">☰</button>
+      </div>
+      <aside id="mobile-menu" class="hidden absolute bg-white left-0 top-16 w-56 shadow-lg rounded-r-lg p-4 z-50">
+        <ul class="space-y-2">
+          <li><button class="tab-btn active w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50" data-tab="dashboard">🏠 Dashboard</button></li>
+        <a href="adminproducts.html" id="settings-btn" class="block py-2 px-3 rounded hover:bg-gray-200 font-medium">📦 Products</a>
+          <li><button class="tab-btn w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50" data-tab="vendors">🏪 Vendors</button></li>
+          <li><button class="tab-btn w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50" data-tab="Affiliate">📈 Affiliate</button></li>
+          <li><button class="tab-btn w-full text-left px-4 py-2 rounded-lg hover:bg-blue-50" data-tab="users">👥 Users</button></li>
+          <a href="Analytics.html" id="settings-btn" class="block py-2 px-3 rounded hover:bg-gray-200 font-medium">📊 Analytics</a>
+          <a href="setting-admin.html" id="settings-btn" class="block py-2 px-3 rounded hover:bg-gray-200 font-medium">Settings</a>
+    
+      </aside>
+      <script>// Check if admin is logged in
+ 
+  // अगर login नहीं हुआ है → login page पर redirect
+  if(localStorage.getItem("isAdminLoggedIn") !== "true") {
+    window.location.href = "admin-login.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("isAdminLoggedIn"); // login status remove
+    window.location.href = "admin-login.html";   // login page वापस
+  }
+</script>
+
+</script>
+
+</body>
+</html>

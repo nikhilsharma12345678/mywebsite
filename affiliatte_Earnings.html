@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Sidebar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+      <li class="active" onclick="setActive(this)">Earnings</li>
+      <li onclick="setActive(this)">Referrals</li>
+      <li onclick="setActive(this)">Settings</li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1 id="pageTitle">Earnings</h1>
+    <p>Welcome to the Earnings section.</p>
+  </div>
+
+  <script src="script.js">
+    // Sidebar active menu logic
+function setActive(element) {
+  const items = document.querySelectorAll(".sidebar ul li");
+  items.forEach(item => item.classList.remove("active"));
+  element.classList.add("active");
+
+  // Update main content heading dynamically
+  document.getElementById("pageTitle").textContent = element.innerText;
+}
+
+  </script>
+</body>
+</html>

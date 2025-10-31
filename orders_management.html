@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Orders - Vendor Panel</title>
+    <link rel="stylesheet" href="orderdashboard_styles.css"> 
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/645b736b7c.js" crossorigin="anonymous"></script>  -->
+</head>
+<body>
+   <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">Vendor Panel</div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="vendor_dashboard.html">Dashboard</a></li>
+                    <li><a href="Product.uploding.html">Add Product</a></li>
+                    <li><a href="inventory_management.html">Manage Inventory</a></li>
+                    <li><a href="orders_management.html">Orders</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Manage Customer Orders</h1>
+                <div class="user-info">Welcome, Vendor Name Nikhil <span class="profile-icon">VN</span></div>
+            </header>
+
+            <div class="orders-table-container">
+                <h2>Recent Orders</h2>
+                
+                <table class="customer-orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Order Date</th>
+                            <th>Customer Name</th>
+                            <th>Total (INR)</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <tr>
+                            <td>#1001A-456</td>
+                            <td>2025-10-29</td>
+                            <td>Ravi Sharma</td>
+                            <td>₹ 1,599.00</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td><button class="status-btn ship-btn">Ship Order</button></td>
+                        </tr>
+                        <tr>
+                            <td>#1001B-789</td>
+                            <td>2025-10-28</td>
+                            <td>Priya Verma</td>
+                            <td>₹ 5,899.50</td>
+                            <td><span class="status-badge status-shipped">Shipped</span></td>
+                            <td><button class="status-btn track-btn">Tracking</button></td>
+                        </tr>
+                        <tr>
+                            <td>#1001C-123</td>
+                            <td>2025-10-25</td>
+                            <td>Amit Kapoor</td>
+                            <td>₹ 2,100.00</td>
+                            <td><span class="status-badge status-delivered">Delivered</span></td>
+                            <td><button class="status-btn delivered-btn" disabled>Delivered</button></td>
+                        </tr>
+                        <tr>
+                            <td>#1001D-321</td>
+                            <td>2025-10-29</td>
+                            <td>Neha Singh</td>
+                            <td>₹ 450.00</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td><button class="status-btn ship-btn">Ship Order</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button class="page-btn" disabled>Previous</button>
+                    <span class="page-info">Page 1 of 5</span>
+                    <button class="page-btn">Next</button>
+                </div>
+            </div>
+            
+            <script src="vendor_panel.js">
+
+            </script> 
+            </main>
+    </div>
+</body>
+</html>

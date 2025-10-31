@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Inventory - Vendor Panel</title>
+    <link rel="stylesheet" href="dashboard_styles.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/645b736b7c.js" crossorigin="anonymous"></script> 
+    <style>/* --- dashboard_styles.css में Manage Inventory Styles जोड़ें --- */
+/* Container */
+.inventory-table-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-top: 20px;
+    overflow-x: auto; /* Horizontal scroll for small screens */
+}
+
+/* Heading */
+.inventory-table-container h2 {
+    margin-bottom: 15px;
+    color: #0534dd;
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-family: 'Amazon Ember', Arial, sans-serif;
+}
+
+/* Table Styling */
+.product-inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px; /* Allows scrolling on mobile */
+    font-family: 'Arial', sans-serif;
+}
+
+.product-inventory-table thead {
+    background: #04385d;
+    color: #fff;
+    font-weight: 600;
+}
+
+.product-inventory-table th, .product-inventory-table td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+.product-inventory-table tbody tr:hover {
+    background: #f1f7ff;
+    transition: background 0.2s ease-in-out;
+}
+
+/* Images */
+.product-inventory-table img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-inventory-table img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Buttons */
+.product-inventory-table button {
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.edit-btn {
+    background-color: #d1e7f5;
+    color: #04385d;
+}
+
+.edit-btn:hover {
+    background-color: #a8d0ec;
+}
+
+.delete-btn {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.delete-btn:hover {
+    background-color: #f5c2c7;
+}
+
+/* Lightbox / Gallery Overlay */
+.gallery-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.gallery-overlay .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2.2rem;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 1010;
+}
+
+.gallery-overlay .gallery-image {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    object-fit: contain;
+}
+
+.gallery-overlay .thumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.gallery-overlay .thumbs img {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid #fff;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.gallery-overlay .thumbs img:hover {
+    transform: scale(1.1);
+    border-color: #04385d;
+}
+
+/* Responsive Styles */
+
+/* Tablets */
+@media (max-width: 900px) {
+    .inventory-table-container {
+        padding: 15px;
+    }
+    .inventory-table-container h2 {
+        font-size: 1.4rem;
+    }
+    .product-inventory-table th, .product-inventory-table td {
+        padding: 10px 6px;
+        font-size: 0.85rem;
+    }
+    .product-inventory-table img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 600px) {
+    .inventory-table-container {
+        padding: 10px;
+    }
+    .inventory-table-container h2 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    .product-inventory-table {
+        font-size: 0.8rem;
+        min-width: 100%;
+    }
+    .product-inventory-table th, .product-inventory-table td {
+        padding: 8px 5px;
+    }
+    .product-inventory-table img {
+        width: 50px;
+        height: 50px;
+    }
+    .gallery-overlay .gallery-image {
+        max-width: 95%;
+        max-height: 70%;
+    }
+    .gallery-overlay .thumbs img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">Vendor Panel</div>
+            <nav>
+                <ul>
+                    
+                     <li class="active"><a href="vendor_dashboard.html">Dashboard</a></li>
+                    <li><a href="Product.uploding.html">Add Product</a></li>
+                    <li><a href="inventory_management.html">Manage Inventory</a></li>
+                    <li><a href="orders_management.html">Orders</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Manage Inventory Listings</h1>
+                <div class="user-info">Welcome, Vendor Name Nikhil <span class="profile-icon">VN</span></div>
+            </header>
+
+            <div class="inventory-table-container">
+                <h2>All Products</h2>
+                
+                <table class="product-inventory-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Image1</th>
+                            <th>Image2</th>
+                            <th>Image3</th>
+                        
+
+                            <th>Product Name</th>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>MRP</th>
+                            <th>Price (INR)</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventoryTableBody">
+                        <tr><td colspan="7" style="text-align: center; color: #777;">Loading products...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Lightbox Overlay -->
+<div class="gallery-overlay" id="galleryOverlay">
+    <span class="close-btn" onclick="closeGallery()">×</span>
+    <img src="" class="gallery-image" id="mainGalleryImage">
+    <div class="thumbs" id="galleryThumbs"></div>
+</div>
+            
+            <script src="vendor_panel.js"></script> 
+            <script>
+                document.addEventListener('DOMContentLoaded', loadInventory);
+
+                function loadInventory() {
+                    const products = JSON.parse(localStorage.getItem('vendorProducts')) || [];
+                    const tbody = document.getElementById('inventoryTableBody');
+                    tbody.innerHTML = '';
+
+                    if (products.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #cc0000; font-weight: 700;">No products found. Please add a product first!</td></tr>';
+                        return;
+                    }
+
+                    products.forEach(product => {
+                        const row = tbody.insertRow();
+                        
+                        // 1. Image
+                    row.insertCell().innerHTML = `<img src="${product.image}" alt="${product.name}" class="inventory-thumbnail">`;
+                    row.insertCell().innerHTML = `<img src="${product.image}" alt="${product.name}" class="inventory-thumbnail">`;
+                    row.insertCell().innerHTML = `<img src="${product.image}" alt="${product.name}" class="inventory-thumbnail">`;
+                    row.insertCell().innerHTML = `<img src="${product.image}" alt="${product.name}" class="inventory-thumbnail">`;
+                        
+                        // 2. Name
+                        row.insertCell().textContent = product.name;
+                        
+                        // 3. SKU
+                        row.insertCell().textContent = product.sku;
+
+                        // 4. Category
+                        row.insertCell().textContent = product.category;
+
+                        // 5. Price
+                        row.insertCell().textContent = '₹ ' + product.price;
+                        // 5. Price
+                        row.insertCell().textContent = '₹ ' + product.MRP;
+
+                        // 6. Stock Level (Color coded)
+                        const stockCell = row.insertCell();
+                        stockCell.textContent = product.quantity;
+                        if (product.quantity < 10) {
+                            stockCell.className = 'stock-low';
+                        } else if (product.quantity < 50) {
+                            stockCell.className = 'stock-medium';
+                        } else {
+                            stockCell.className = 'stock-high';
+                        }
+
+                        // 7. Actions
+                        row.insertCell().innerHTML = `
+                            <button class="action-btn edit-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete" onclick="deleteAndRefreshInventory('${product.id}')"><i class="fas fa-trash"></i></button>
+                        `;
+                    });
+                }
+                
+                // Wrapper for deletion and refreshing the table
+                function deleteAndRefreshInventory(productId) {
+                    if (confirm('Are you sure you want to permanently delete this product listing?')) {
+                        // deleteProduct function is in vendor_panel.js
+                        if (typeof deleteProduct === 'function') {
+                            deleteProduct(productId);
+                            loadInventory(); // Refresh the table view after deletion
+                        } else {
+                            alert("Error: deleteProduct function is missing in vendor_panel.js");
+                        }
+                    }
+                }
+                           
+
+            </script>
+        </main>
+    </div>
+</body>
+</html>
